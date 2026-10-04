@@ -1,0 +1,574 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newcommand{\C}{\mathbb C}
+\newcommand{\N}{\mathbb N}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\dd}{\,d}
+\newcommand{\avint}{\frac{1}{2\pi}\int_0^{2\pi}}
+\DeclareMathOperator{\supp}{supp}
+\title{Cofinite derivative zeros at the order-one threshold}
+\author{Jensen Kohlmeyer \and Liam Kruer}
+\date{October 4, 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We give a complete probabilistic construction of a transcendental entire
+function for which every nonempty open set contains a zero of every
+sufficiently high derivative. The construction has
+$\log M(r)=O(r\log r\log\log r)$, hence order exactly one and infinite
+exponential type. No transcendental entire function of finite exponential
+type can have this zero property. We also establish a local limiting
+zero-counting measure for the constructed derivatives.
+The original existence assertion already has prior solution claims,
+including Hou's 2026 preprint. This draft does not claim first discovery
+of that assertion. The order-one construction and growth obstruction are
+the proposed strengthening; their novelty remains subject to literature
+review. All mathematical arguments are supplied below.
+\end{abstract}
+
+\section{Problem, scope, and attribution}
+
+The prize catalogue lists JSP-000752 as Open on the source snapshot read
+on October 4, 2026 \cite{JSP}. It asks for an entire function with dense
+derivative zero sets along every infinite subsequence of derivative
+orders. The natural, nontrivial interpretation requires a
+\emph{transcendental} entire function: a nonzero polynomial would satisfy
+the literal version because all sufficiently high derivatives vanish
+identically. This is Erd\H{o}s Problem 906 in Bloom's database
+\cite{Bloom}.
+
+The prize rules permit a complete mathematical solution to be supplied
+before Lean formalization \cite{Rules}. Its catalogue flag
+``Eligible to claim'' has a different meaning: an award claim requires
+both an accepted mathematical solution and verified formalization. This manuscript supplies mathematical proof evidence for review;
+no award entitlement or maintainer acceptance is asserted.
+
+The bounded random-series and zero-free-disk framework has a clear
+precedent in Hou \cite{Hou}, whose stated construction has order two.
+Earlier probabilistic proposals are linked in the discussion of
+Problem 906 \cite{Bloom}. The existence answer itself is therefore
+\emph{not claimed as a new breakthrough}. The construction below replaces
+the Fock weights with slowly increasing derivative weights and proves a
+stronger growth conclusion. It uses an inverse-amplitude moment and
+Jensen's inequality; no Laguerre asymptotics or external random-zero
+concentration theorem is needed. The order-one strengthening was not located in the cited prior sources;
+this is not a claim of verified first-discovery priority.
+
+Write $B(c,R)=\{z:|z-c|<R\}$ and
+$M_f(r)=\max_{|z|=r}|f(z)|$. The zero property we will prove is
+\begin{equation}\tag{C}\label{eq:C}
+ \forall U\subset\C\text{ nonempty and open},\quad
+ \exists N_U\quad\forall n\geq N_U,\quad
+ \exists z\in U:\ f^{(n)}(z)=0.
+\end{equation}
+All derivative orders are nonnegative integers.
+
+\begin{lemma}[The required quantifier]
+An entire function has property \eqref{eq:C} if and only if the union of
+the zero sets of $f^{(n_k)}$ is dense for every strictly increasing
+sequence $(n_k)$ of derivative orders.
+\end{lemma}
+\begin{proof}
+If \eqref{eq:C} holds, every such sequence eventually exceeds $N_U$, so
+the union meets each nonempty open $U$. Conversely, if \eqref{eq:C}
+fails for one $U$, infinitely many derivative orders have no zero in
+$U$. Enumerating those orders gives a strictly increasing sequence
+whose union of zero sets misses $U$.
+\end{proof}
+
+\section{A sharp order threshold}
+
+\begin{theorem}\label{thm:main}
+There is a transcendental entire function $f$ with property
+\eqref{eq:C} such that
+\begin{equation}\label{eq:growth}
+ \log M_f(r)=O(r\log r\log\log r)\qquad(r\longrightarrow\infty).
+\end{equation}
+It has order exactly one and infinite exponential type.
+Moreover, no transcendental entire function satisfying
+\eqref{eq:C} has finite exponential type. Thus one is the smallest
+possible order, and this order is attained.
+\end{theorem}
+
+Finite exponential type here means that
+$|g(z)|\leq C e^{T|z|}$ for some finite $C,T>0$ and all $z$.
+The usual order is
+$\rho(g)=\limsup_{r\to\infty}\log\log M_g(r)/\log r$.
+
+\begin{proposition}[Finite exponential type is impossible]
+\label{prop:obstruction}
+A transcendental entire function of finite exponential type cannot
+satisfy \eqref{eq:C}.
+\end{proposition}
+\begin{proof}
+Suppose $|g(z)|\leq C e^{T|z|}$ with $T>0$. Fix $R>0$, and let
+\[
+ m_n(R)=\max_{|z|\leq R}|g^{(n)}(z)|.
+\]
+If \eqref{eq:C} holds, for all $n\geq N_R$ choose
+$a_n\in B(0,R)$ with $g^{(n)}(a_n)=0$.
+The line segment from $a_n$ to any $z$ in the closed disk lies in
+that disk. The fundamental theorem of calculus along this segment gives
+\[
+ |g^{(n)}(z)|\leq |z-a_n|m_{n+1}(R)\leq2R m_{n+1}(R).
+\]
+Consequently
+\begin{equation}\label{eq:lowerder}
+ m_n(R)\geq m_{N_R}(R)(2R)^{-(n-N_R)}\qquad(n\geq N_R).
+\end{equation}
+The factor $m_{N_R}(R)$ is strictly positive, since a derivative
+of a transcendental entire function is not identically zero.
+
+Cauchy's estimate on a circle of radius $t$ about $z$, $|z|\leq R$,
+gives
+\[
+ m_n(R)\leq C e^{TR} n!\frac{e^{Tt}}{t^n}.
+\]
+Take $t=n/T$ and use $n!\leq n^n$. For $n\geq1$ this yields
+\begin{equation}\label{eq:upperder}
+ m_n(R)\leq C e^{TR}(eT)^n.
+\end{equation}
+Choosing $0<R<(2eT)^{-1}$ contradicts
+\eqref{eq:lowerder}--\eqref{eq:upperder}, because
+$(2R)^{-1}>eT$.
+\end{proof}
+
+\section{The weighted random entire function}
+
+Set $A=e^e$ and, for $t\geq0$, define
+\begin{equation}\label{eq:w}
+ w(t)=\log(t+A)\log\log(t+A),\qquad W_n=w(n).
+\end{equation}
+Define $b_0=1$ and $b_n=\prod_{j=1}^n W_j$ for $n\geq1$.
+Let $(\xi_j)_{j\geq0}$ be independent random variables, each uniformly
+distributed with respect to area on the closed unit disk.
+Our entire function is
+\begin{equation}\label{eq:f}
+ f(z)=\sum_{j=0}^\infty\xi_j\frac{b_j}{j!}z^j.
+\end{equation}
+These are genuine random complex coefficients; the probabilistic
+argument extracts one deterministic sample at the end.
+
+We will use only the following elementary facts about $w$:
+\begin{equation}\label{eq:wfacts}
+ W_n\geq1,\quad w\text{ is increasing},\quad
+ \frac{W_{2n}}{W_n}\longrightarrow1,\quad
+ \frac{W_n}{\log n}\longrightarrow\infty,\quad
+ \frac{W_n}{\sqrt n}\longrightarrow0.
+\end{equation}
+Indeed, for $t\geq0$,
+$w'(t)=(\log\log(t+A)+1)/(t+A)>0$, and the remaining
+limits follow from $w(t)\sim\log t\log\log t$.
+
+\begin{lemma}[Normal convergence and deterministic growth]
+\label{lem:entire}
+Every sample in \eqref{eq:f} is entire. For all sufficiently large $r$,
+uniformly over all samples,
+\begin{equation}\label{eq:explicitgrowth}
+ M_f(r)\leq2\exp\!\bigl(rw(\lceil r^2\rceil)\bigr).
+\end{equation}
+Almost surely all Taylor coefficients are nonzero, so $f$ is
+transcendental almost surely.
+\end{lemma}
+\begin{proof}
+Monotonicity gives $b_j\leq W_j^j$. The elementary factorial bound
+$j!\geq(j/e)^j$ gives
+\[
+ \left(\frac{b_j}{j!}\right)^{1/j}\leq\frac{eW_j}{j}
+ \longrightarrow0.
+\]
+Thus the series converges normally on compact sets, uniformly in the
+bounded coefficients. The same is true after any fixed number of
+termwise differentiations.
+
+For the growth bound put $J=\lceil r^2\rceil$.
+For $0\leq j\leq J$ we have $b_j\leq W_J^j$, so the sum of
+these absolute terms is at most $\exp(rW_J)$.
+For $j>J$, $r\leq\sqrt j$, and therefore
+\[
+ \frac{b_jr^j}{j!}
+ \leq\left(\frac{erW_j}{j}\right)^j
+ \leq\left(\frac{eW_j}{\sqrt j}\right)^j.
+\]
+By \eqref{eq:wfacts}, for all sufficiently large $r$ the last
+quantity is at most $2^{-j}$ for every $j>J$.
+The tail is at most $2^{-J}\leq1$, which is at most the preceding
+exponential bound. This proves \eqref{eq:explicitgrowth}.
+Finally each coefficient law is nonatomic, so
+$\Prob(\xi_j=0)=0$ for each $j$. A countable union of null events
+still has probability zero.
+\end{proof}
+
+Normalize the derivatives by
+\begin{equation}\label{eq:G}
+ G_n(z)=\frac{f^{(n)}(z)}{b_n}
+ =\sum_{k=0}^\infty\xi_{n+k}B_{n,k}\frac{z^k}{k!},\qquad
+ B_{n,k}=\frac{b_{n+k}}{b_n}
+ =\prod_{j=n+1}^{n+k}W_j.
+\end{equation}
+The empty product is one. Normalization does not change any zero set.
+
+\begin{lemma}[A uniform upper bound for a derivative]
+\label{lem:upper}
+For every fixed $H>0$, for all sufficiently large $n$ and all
+$0\leq r\leq H$,
+\begin{equation}\label{eq:Sn}
+ S_n(r):=\sum_{k=0}^\infty B_{n,k}\frac{r^k}{k!}
+ \leq e^{rW_{2n}}+2^{-n}\leq2e^{rW_{2n}}.
+\end{equation}
+In particular $|G_n(z)|\leq2e^{|z|W_{2n}}$ for $|z|\leq H$.
+\end{lemma}
+\begin{proof}
+For $k\leq n$, all factors in $B_{n,k}$ are at most $W_{2n}$.
+These terms sum to at most $e^{rW_{2n}}$.
+For $k>n$, we have $n+k\leq2k$, hence
+\[
+ B_{n,k}\frac{r^k}{k!}
+ \leq\left(\frac{eH w(2k)}{k}\right)^k.
+\]
+Since $w(2k)/k\to0$, for all sufficiently large $n$ the last
+quantity is at most $2^{-k}$ simultaneously for every $k>n$.
+The sum of these terms is $2^{-n}$. The last assertion uses
+$|\xi_j|\leq1$.
+\end{proof}
+
+\section{One-coordinate anti-concentration}
+
+\begin{lemma}[An inverse-amplitude moment]\label{lem:inverse}
+If $\xi$ is uniform on the unit disk, $a\neq0$ and $v\in\C$, then
+\begin{equation}\label{eq:smallball}
+ \Prob(|a\xi+v|<s)\leq\min\{1,s^2/|a|^2\}\quad(s>0),
+ \qquad \E\frac{1}{|a\xi+v|}\leq\frac{2}{|a|}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The first inequality follows by comparing areas: the preimage of the
+disk of radius $s$ has area at most $\pi s^2/|a|^2$ in the unit disk.
+The layer-cake formula and this inequality give
+\[
+ \E\frac1{|a\xi+v|}
+ \leq\int_0^{1/|a|}1\dd t+
+ \int_{1/|a|}^\infty\frac{1}{|a|^2t^2}\dd t
+ =\frac{2}{|a|}.
+\]
+\end{proof}
+
+\begin{lemma}[A near-peak coefficient]\label{lem:peak}
+For $t\geq1$ and $m=\lfloor t\rfloor$,
+\begin{equation}\label{eq:peakfactorial}
+ \frac{t^m}{m!}\geq\frac{e^t}{e^2t}.
+\end{equation}
+Consequently, if $|z|W_n\geq1$, the term with
+$m=\lfloor |z|W_n\rfloor$ in \eqref{eq:G} has coefficient
+$a=B_{n,m}z^m/m!$ satisfying
+\[
+ |a|\geq \frac{e^{|z|W_n}}{e^2|z|W_n}.
+\]
+\end{lemma}
+\begin{proof}
+For $m\geq1$, comparison with an integral gives
+\[
+ \log(m!)\leq m\log m-m+1+\log m.
+\]
+Thus
+\[
+ \log\frac{t^m}{m!}
+ \geq m\log(t/m)+m-1-\log m
+ \geq t-2-\log t,
+\]
+because $m\leq t$, $m\geq t-1$, and $\log m\leq\log t$.
+Monotonicity of $w$ gives $B_{n,m}\geq W_n^m$, proving
+the second assertion.
+\end{proof}
+
+\begin{lemma}[Uniform inverse moments on a compact set]
+\label{lem:pointmoment}
+For any $H>0$, put $H_+=\max\{1,H\}$. For every $n\geq1$ and
+$|z|\leq H$,
+\begin{equation}\label{eq:pointmoment}
+ \E\left(\frac{e^{W_n|z|}}{|G_n(z)|}\right)
+ \leq 2e^2H_+W_n.
+\end{equation}
+The value at $G_n(z)=0$ is interpreted as $+\infty$.
+\end{lemma}
+\begin{proof}
+If $|z|W_n\geq1$, choose $m$ as in Lemma~\ref{lem:peak} and
+condition on all coefficients except $\xi_{n+m}$. The normally
+convergent series becomes $a\xi_{n+m}+v$, with $v$ fixed under this
+conditioning. Independence, Lemma~\ref{lem:inverse}, and
+Lemma~\ref{lem:peak} give
+\[
+ \E\left(\left.\frac{e^{W_n|z|}}{|G_n(z)|}\right|
+                  \text{all other coefficients}\right)
+ \leq2e^2|z|W_n\leq2e^2H_+W_n.
+\]
+Integration removes the conditioning.
+If $|z|W_n<1$, condition instead on $\xi_n$, whose coefficient
+in $G_n(z)$ is one. The left side is then at most $2e$,
+which is no larger than the right side since $H_+,W_n\geq1$.
+This includes $z=0$.
+\end{proof}
+
+\section{Summable probabilities of zero-free disks}
+
+\begin{lemma}[Strict circular gain]\label{lem:gain}
+For $c\in\C$ and $\eta>0$,
+\[
+ \gamma(c,\eta)=\avint|c+\eta e^{i\theta}|\dd\theta-|c|>0.
+\]
+\end{lemma}
+\begin{proof}
+Pair the angles $\theta$ and $\theta+\pi$. The triangle inequality
+gives $|c+\eta e^{i\theta}|+|c-\eta e^{i\theta}|\geq2|c|$.
+For $c\neq0$ the inequality is strict on an interval of angles near
+a direction perpendicular to $c$. For $c=0$ the assertion is
+immediate. Integrating proves strict positivity.
+\end{proof}
+
+Fix $c\neq0$ and $0<R<|c|$, put $\eta=R/2$ and
+$H=|c|+\eta$, and let $\mathcal H_n(c,R)$ be the event that
+$G_n$ has no zero in $B(c,R)$. Define the nonnegative random variable
+\begin{equation}\label{eq:Y}
+ Y_n=\avint
+ \frac{\exp(W_n|c+\eta e^{i\theta}|)}
+ {|G_n(c+\eta e^{i\theta})|}\dd\theta.
+\end{equation}
+Tonelli's theorem and \eqref{eq:pointmoment} imply
+\begin{equation}\label{eq:Ymean}
+ \E Y_n\leq2e^2H_+W_n.
+\end{equation}
+
+On $\mathcal H_n(c,R)$, $\log|G_n|$ is harmonic throughout
+$B(c,R)$, and therefore
+\begin{equation}\label{eq:harmonicmean}
+ \avint\log|G_n(c+\eta e^{i\theta})|\dd\theta
+ =\log|G_n(c)|.
+\end{equation}
+Jensen's inequality for the exponential, applied to \eqref{eq:Y},
+and \eqref{eq:harmonicmean} give
+\[
+ \log Y_n\geq W_n(|c|+\gamma(c,\eta))-\log|G_n(c)|.
+\]
+For all sufficiently large $n$, Lemma~\ref{lem:upper} bounds the
+last term. Thus, on $\mathcal H_n(c,R)$,
+\begin{equation}\label{eq:holeimplies}
+ Y_n\geq\frac12
+ \exp\!\left(\gamma(c,\eta)W_n-|c|(W_{2n}-W_n)\right).
+\end{equation}
+Markov's inequality, \eqref{eq:Ymean}, and
+\eqref{eq:holeimplies} now yield
+\begin{align}
+ \Prob(\mathcal H_n(c,R))
+ &\leq4e^2H_+W_n
+  \exp\!\left(-\gamma(c,\eta)W_n+|c|(W_{2n}-W_n)\right)
+   \label{eq:hole1}\\
+ &\leq4e^2H_+W_n\exp\!\left(-\tfrac12\gamma(c,\eta)W_n\right)
+   \label{eq:hole2}
+\end{align}
+for all sufficiently large $n$. The second inequality uses
+$W_{2n}/W_n\to1$ and $\gamma(c,\eta)>0$.
+
+For every $a>0$, \eqref{eq:wfacts} implies
+\begin{equation}\label{eq:summable}
+ \sum_{n=1}^\infty W_n e^{-aW_n}<\infty.
+\end{equation}
+For example, eventually $W_n\leq\sqrt n$ and
+$aW_n\geq4\log n$, so the summand is at most $n^{-7/2}$.
+Consequently the probabilities in \eqref{eq:hole2} are summable.
+The first Borel--Cantelli lemma proves that, almost surely,
+only finitely many $G_n$ are zero-free in this fixed disk.
+No independence between different derivative orders is used.
+
+For completeness the events above are measurable. Normal convergence
+makes $(\omega,z)\mapsto G_n(\omega,z)$ jointly continuous when the
+sample space is the countable product of closed unit disks with its
+product topology. Zero-freeness on an open disk equals positivity of
+the minimum modulus on each of a countable increasing sequence of
+closed subdisks. Each minimum is a measurable function; it can also
+be computed as an infimum over a countable dense set. The nonnegative
+integrand in \eqref{eq:Y} is measurable, so Tonelli applies without
+any integrability assumption in advance.
+
+\begin{proof}[Completion of Theorem~\ref{thm:main}]
+Take the countable family
+\[
+ \mathcal B=\{B(c,R):c\in\mathbb Q+i\mathbb Q,\quad
+                    R\in\mathbb Q_{>0},\quad R<|c|\}.
+\]
+Every nonempty open subset of $\C$ contains a member of $\mathcal B$:
+choose a nonzero point in it, then a nearby rational complex center
+and a sufficiently small rational radius.
+The preceding Borel--Cantelli conclusion holds simultaneously for
+all disks in $\mathcal B$ outside a countable union of null events.
+Intersect with the probability-one event on which all coefficients
+are nonzero. Choose a sample in this intersection.
+The resulting deterministic transcendental entire $f$ has
+\eqref{eq:C}; the quantifier lemma gives the original subsequence
+formulation as well.
+
+Lemma~\ref{lem:entire} implies \eqref{eq:growth}, since
+$w(\lceil r^2\rceil)=O(\log r\log\log r)$.
+Thus $\rho(f)\leq1$.
+Every entire function of order less than one has finite exponential
+type: choose $\rho(f)<q<1$, then eventually
+$\log M_f(r)\leq r^q\leq r$, and adjust a constant on the remaining
+compact disk. Proposition~\ref{prop:obstruction} therefore forces
+$\rho(f)\geq1$. It also rules out finite exponential type for our
+chosen function. This proves all assertions of the theorem.
+\end{proof}
+
+\section{A further check: limiting zero density}
+
+The same construction provides a quantitative version. This section
+is not needed for the existence proof above.
+Let $\nu_n$ be the locally finite measure that counts the zeros of
+$f^{(n)}$, with multiplicities.
+
+\begin{theorem}\label{thm:density}
+For almost every sample in \eqref{eq:f},
+\[
+ \frac{\nu_n}{W_n}\ \longrightarrow\
+ \frac{1}{2\pi|z|}\dd A(z)
+\]
+locally weakly as $n\to\infty$. The limiting measure has no atom at
+zero; its displayed density is locally integrable.
+In particular, for every fixed $r>0$,
+\[
+ \nu_n(B(0,r))\sim rW_n.
+\]
+\end{theorem}
+\begin{proof}
+For a fixed $H>0$, write
+\[
+ V_n(z)=\bigl(W_n|z|-\log|G_n(z)|\bigr)_+,
+ \qquad Q_n=\frac1{\pi H^2}\int_{|z|<H}V_n(z)\dd A(z).
+\]
+The value $+\infty$ at a zero causes no difficulty. Nonzero analytic
+functions have locally integrable logarithms. Moreover
+$e^{x_+}\leq1+e^x$ and Lemma~\ref{lem:pointmoment} give
+\[
+ \E e^{V_n(z)}\leq1+2e^2H_+W_n\qquad(|z|\leq H).
+\]
+Jensen's inequality for normalized area measure and Tonelli's theorem
+imply
+\[
+ \E e^{Q_n}\leq1+2e^2H_+W_n.
+\]
+Hence, for every $\varepsilon>0$,
+\[
+ \Prob(Q_n>\varepsilon W_n)
+ \leq(1+2e^2H_+W_n)e^{-\varepsilon W_n}.
+\]
+These probabilities are summable by \eqref{eq:summable}.
+Apply Borel--Cantelli for integer $H\geq1$ and positive rational
+$\varepsilon$ to obtain, almost surely, $Q_n/W_n\to0$ on every
+compact disk.
+
+Set $u_n(z)=W_n^{-1}\log|G_n(z)|$. Lemma~\ref{lem:upper} gives
+\[
+ (u_n(z)-|z|)_+\leq
+ H\left(\frac{W_{2n}}{W_n}-1\right)+\frac{\log2}{W_n}
+ \longrightarrow0
+\]
+uniformly for $|z|\leq H$. The opposite part is exactly
+$(|z|-u_n(z))_+=V_n(z)/W_n$. Thus
+\begin{equation}\label{eq:L1}
+ u_n\longrightarrow |z|\quad\hbox{in }L^1_{\rm loc}(\C)
+ \quad\hbox{almost surely}.
+\end{equation}
+For a nonzero analytic function $h$, the elementary distributional
+identity
+\[
+ \Delta\log|h|=2\pi\sum_{h(a)=0}\operatorname{mult}_a(h)\delta_a
+\]
+follows from local factorization at each zero and
+$\Delta\log|z-a|=2\pi\delta_a$; the nonvanishing local factor
+has harmonic log modulus. Therefore
+$\nu_n/W_n=(2\pi)^{-1}\Delta u_n$.
+Taking distributional Laplacians in \eqref{eq:L1} gives
+\[
+ \frac{\nu_n}{W_n}\longrightarrow\frac1{2\pi}\Delta|z|
+ =\frac1{2\pi|z|}\dd A(z).
+\]
+For the last equality, away from zero the radial Laplacian is
+$1/|z|$. Its flux through a circle of radius $s$ is $2\pi s$,
+which tends to zero, so there is no delta mass at the origin.
+
+Distributional convergence of these positive measures implies local
+weak convergence: a smooth compactly supported upper cutoff bounds
+their masses on any fixed compact set, and continuous test functions
+can then be uniformly approximated by smooth ones. Each disk boundary
+has zero limiting measure, so the masses of any fixed disk converge
+to the mass prescribed by the limit. Polar integration gives
+$\int_{B(0,r)}(2\pi|z|)^{-1}\dd A=r$.
+\end{proof}
+
+\section{General weights and verification notes}
+
+The proof uses no special identity for \eqref{eq:w}. It works for any
+nondecreasing sequence $W_n\geq1$ with
+\[
+ W_{2n}/W_n\to1,\qquad W_n/\log n\to\infty,\qquad
+ W_n/\sqrt n\to0,
+\]
+using $b_n=\prod_{j=1}^nW_j$. The deterministic bound becomes
+$\log M_f(r)\leq rW_{\lceil r^2\rceil}+\log2$ eventually,
+and the limiting zero measure has normalization $W_n$.
+For example, slowly varying factors growing more slowly than
+$\log\log n$ can replace that factor in \eqref{eq:w}, as long as
+the three displayed conditions hold. The exact least possible
+growth rate inside the order-one infinite-type class is not determined
+by this argument.
+
+The main proof is analytic and has no numerical assumptions. An
+accompanying Python script checks the coefficient peak inequality and
+the derivative majorant at selected parameter values using high
+precision arithmetic. Those checks are sanity checks, not substitutes
+for the proofs and not a Lean formalization.
+
+\section*{AI assistance and authorship disclosure}
+
+Jensen Kohlmeyer (GitHub: \href{https://github.com/JENW1N}{JENW1N})
+and Liam Kruer (GitHub: \href{https://github.com/lkruer}{lkruer})
+are the designated authors of this AI-assisted research manuscript.
+OpenAI Codex assisted with the mathematical construction, proof development,
+coefficient checks, literature comparison, and manuscript preparation.
+The public submission is made from the JENW1N account.
+No independent human verification or distinct individual author roles
+are asserted by this disclosure; attribution and correctness are
+submitted for review.
+
+The principal points for independent review are the conditional inverse
+moment, the uniform tail estimate for all $k>n$, and the summability
+for every positive disk-dependent constant. The full proof above
+addresses the original infinite-subsequence quantifier. It has no
+unproved mathematical premise. First-solution credit is expressly not
+claimed; novelty of the sharper growth statements remains unverified.
+
+\begin{thebibliography}{9}
+\bibitem{JSP} The Justin Sun Prize, problem JSP-000752, catalogue
+snapshot read October 4, 2026.
+\url{https://github.com/TheJustinSunPrize/awards/blob/main/problems/catalog-0701-0800.md}
+\bibitem{Rules} The Justin Sun Prize, contribution guidelines,
+snapshot read October 4, 2026.
+\url{https://github.com/TheJustinSunPrize/awards/blob/main/CONTRIBUTING.md}
+\bibitem{Bloom} T. F. Bloom, Erd\H{o}s Problem 906 and its discussion.
+\url{https://www.erdosproblems.com/906}
+\url{https://www.erdosproblems.com/forum/thread/906?embed=1}
+\bibitem{Hou} E. Hou, \emph{Cofinite Zeros of High Derivatives},
+arXiv:2607.20816, 2026. Version 3 and the author's current repository
+manuscript were inspected for this draft.
+\url{https://arxiv.org/html/2607.20816v3}
+\url{https://github.com/erichou1/cofinite-derivative-zeros}
+\end{thebibliography}
+\end{document}

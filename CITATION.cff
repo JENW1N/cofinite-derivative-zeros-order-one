@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "Cite the designated manuscript authors and disclose the AI assistance described in README.md."
+title: "Cofinite derivative zeros at the order-one threshold"
+type: article
+version: 1.0.0
+date-released: 2026-10-04
+authors:
+  - family-names: Kohlmeyer
+    given-names: Jensen
+    website: "https://github.com/JENW1N"
+  - family-names: Kruer
+    given-names: Liam
+    website: "https://github.com/lkruer"
+url: "https://github.com/JENW1N/cofinite-derivative-zeros-order-one"
+abstract: "AI-assisted complete construction for JSP-000752 (Erdos Problem 906), with an order-one strengthening, a finite-exponential-type obstruction, and a local limiting derivative zero measure. First discovery of the original existence assertion is not claimed."
