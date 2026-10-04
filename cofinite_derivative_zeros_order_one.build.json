@@ -1,0 +1,13 @@
+{
+  "repository": "https://github.com/JENW1N/cofinite-derivative-zeros-order-one",
+  "source_commit": "8bb9abc57bc53ecb69807e5b6f7c3f0ad0cd61b6",
+  "source_path": "paper.tex",
+  "source_url": "https://raw.githubusercontent.com/JENW1N/cofinite-derivative-zeros-order-one/8bb9abc57bc53ecb69807e5b6f7c3f0ad0cd61b6/paper.tex",
+  "source_sha256": "3b7bba74583a5a7786ad0dbe824526971f3fc48ce8962f1125fa786429dc7e7e",
+  "pdf_name": "cofinite_derivative_zeros_order_one.pdf",
+  "pdf_sha256": "8595ebe4a5697a4692898940cfc535c791ce164395290cf369b2b73e4da723d0",
+  "compiler_service": "https://latexonline.cc/compile",
+  "compiler_command": "pdflatex",
+  "exported_at_utc": "2026-10-04T23:22:12.803239+00:00",
+  "limitations": "Compilation and matching hashes check the artifact, not the mathematics."
+}
